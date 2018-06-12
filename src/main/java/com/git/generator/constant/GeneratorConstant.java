@@ -9,8 +9,6 @@ package com.git.generator.constant;
  **/
 public interface GeneratorConstant {
 
-
-
     /**
      * 默认编码格式
      */

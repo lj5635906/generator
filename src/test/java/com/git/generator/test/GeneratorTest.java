@@ -1,12 +1,15 @@
 package com.git.generator.test;
 
 import com.git.generator.GeneratorApplication;
+import com.git.generator.config.DataSourceConfig;
+import com.git.generator.config.GeneratorConfig;
 import com.git.generator.conversion.GeneratorDataConversion;
 import com.git.generator.domain.Column;
-import com.git.generator.domain.EntityBean;
+import com.git.generator.domain.EntityProperty;
 import com.git.generator.domain.Table;
 import com.git.generator.handler.GeneratorDataBaseHandler;
 import com.git.generator.process.Generator;
+import com.git.generator.service.GeneratorService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,34 +32,43 @@ import java.util.Map;
 public class GeneratorTest {
 
     @Autowired
-    private GeneratorDataBaseHandler generatorDataBaseHandler;
-
-    @Autowired
-    private GeneratorDataConversion generatorDataConversion;
-
-    @Autowired
-    private Generator generatorEntity;
-    @Autowired
-    private Generator generatorRepository;
-    @Autowired
-    private Generator generatorService;
-    @Autowired
-    private Generator generatorServiceImpl;
+    private GeneratorService generatorService;
 
     @Test
     public void getTableInfo() {
         try {
-            Map<String, Table> tableMap = generatorDataBaseHandler.getAllTable();
-            Map<String, List<Column>> data = generatorDataBaseHandler.getAllTableDetailByTableNames(new ArrayList<String>() {{
+            DataSourceConfig config = new DataSourceConfig();
+            config.setUrl("jdbc:mysql://www.luojie.site:3306/home?Unicode=true&characterEncoding=UTF-8");
+            config.setDriverClassName("com.mysql.jdbc.Driver");
+            config.setUsername("root");
+            config.setPassword("");
+            GeneratorDataBaseHandler.dataSourceConfig = config;
+
+            // # 数据访问层使用框架 jpa、mybatis
+            GeneratorConfig.dataAccessType = "jpa";
+            // # 生成代码模块名
+            GeneratorConfig.moduleName = null;
+            // # 生成代码包名前缀
+            GeneratorConfig.packageName = "com.home.customer.server";
+            // # 需要跳过表名前缀的数目
+            GeneratorConfig.SKIP_NUM_TABLE = 1;
+            // # 需要跳过字段前缀的数目
+            GeneratorConfig.SKIP_NUM_FILED = 0;
+            // # 生成代码文件目录
+            GeneratorConfig.target = "F:/home/code/";
+
+            List<String> tableNames = new ArrayList<String>() {{
+                this.add("home_building");
+                this.add("home_building_position");
                 this.add("home_customer");
-            }});
+            }};
 
-            Map<String, List<EntityBean>> beans = generatorDataConversion.conversion(data);
+            List<String> modules = new ArrayList<String>() {{
+                this.add("Entity");
+                this.add("Repository");
+            }};
 
-            generatorEntity.generator(tableMap,beans);
-            generatorRepository.generator(tableMap,beans);
-            generatorService.generator(tableMap,beans);
-            generatorServiceImpl.generator(tableMap,beans);
+            generatorService.generator(tableNames, modules);
 
         } catch (Exception e) {
             e.printStackTrace();

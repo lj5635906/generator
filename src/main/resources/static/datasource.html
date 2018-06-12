@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>代码生成器</title>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/datasource.css">
+    <script type="text/javascript" src="js/public/jquery.js"></script>
+    <script type="text/javascript" src="js/datasource.js"></script>
+</head>
+<body>
+<div id="container">
+    <div class="datasource">
+        <div class="heard">
+            <h3>请设置数据源信息</h3>
+        </div>
+        <div class="body" style="padding-left: 20%">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputUrl" class="col-sm-2 control-label">连接地址</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="url" id="inputUrl" placeholder="请设置连接地址,如: jdbc:mysql://127.0.0.1:3306/mysql" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">数据库驱动类型</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="driverClassName" id="inputDriverClassName">
+                            <option value="com.mysql.jdbc.Driver">com.mysql.jdbc.Driver</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputUsername" class="col-sm-2 control-label">数据库用户名</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="username" id="inputUsername" placeholder="请设置用户名" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">数据库用户名</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="password" id="inputPassword" placeholder="请设置密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" id="verifyConfig" class="btn btn-default">测试连接</button>
+                        <button type="button" id="submitConfig" class="btn btn-default">确认</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

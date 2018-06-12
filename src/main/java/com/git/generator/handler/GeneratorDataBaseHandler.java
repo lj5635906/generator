@@ -22,8 +22,7 @@ import java.util.Map;
 @Component
 public class GeneratorDataBaseHandler {
 
-    @Autowired
-    private DataSourceConfig dataSourceConfig;
+    public static DataSourceConfig dataSourceConfig = null;
 
     /**
      * 获取数据库连接
@@ -32,6 +31,9 @@ public class GeneratorDataBaseHandler {
      * @throws Exception Exception
      */
     public Connection getConnection() throws Exception {
+        if (null == dataSourceConfig){
+            throw new Exception("请设置数据源信息");
+        }
         Class.forName(dataSourceConfig.getDriverClassName());
         // 获取链接
         return DriverManager.getConnection(dataSourceConfig.getUrl(), dataSourceConfig.getUsername(), dataSourceConfig.getPassword());
@@ -43,6 +45,9 @@ public class GeneratorDataBaseHandler {
      * @return Map<String, Table> <表名,表信息>
      */
     public Map<String, Table> getAllTable() throws Exception {
+        if (null == dataSourceConfig){
+            throw new Exception("请设置数据源信息");
+        }
         Map<String, Table> map = new HashMap<>(2);
         Connection connection = null;
         ResultSet resultSet = null;
@@ -174,7 +179,6 @@ public class GeneratorDataBaseHandler {
         return list;
     }
 
-
     /**
      * 关闭连接 ResultSet
      *
@@ -203,5 +207,13 @@ public class GeneratorDataBaseHandler {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static DataSourceConfig getDataSourceConfig() {
+        return dataSourceConfig;
+    }
+
+    public static void setDataSourceConfig(DataSourceConfig dataSourceConfig) {
+        GeneratorDataBaseHandler.dataSourceConfig = dataSourceConfig;
     }
 }

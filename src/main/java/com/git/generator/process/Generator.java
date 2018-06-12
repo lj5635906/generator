@@ -1,9 +1,8 @@
 package com.git.generator.process;
 
-import com.git.generator.domain.EntityBean;
+import com.git.generator.domain.EntityProperty;
 import com.git.generator.domain.Table;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +22,6 @@ public interface Generator {
      * @param tableColumn 列信息
      * @throws Exception Exception
      */
-    void generator(Map<String, Table> table, Map<String, List<EntityBean>> tableColumn) throws Exception ;
+    void generator(Map<String, Table> table, Map<String, List<EntityProperty>> tableColumn) throws Exception ;
 
 }

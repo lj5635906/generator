@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>代码生成器</title>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="js/public/jquery.js"></script>
+    <script type="text/javascript" src="js/tables.js"></script>
+</head>
+<body>
+<div class="container">
+    <table class="table table-striped">
+        <caption>所有数据表</caption>
+        <thead>
+        <tr>
+            <th><input type="checkbox" id="table-all"/></th>
+            <th>表名</th>
+            <th>注释</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    选择需要生成的模块 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label class="checkbox-inline">
+        <input type="checkbox" name="generatorModule" value="Entity"> Entity
+    </label>
+    <label class="checkbox-inline">
+        <input type="checkbox" name="generatorModule" value="Repository"> Repository
+    </label>
+    <label class="checkbox-inline">
+        <input type="checkbox" name="generatorModule" value="Service"> Service
+    </label>
+    <label class="checkbox-inline">
+        <input type="checkbox" name="generatorModule" value="ServiceImpl"> ServiceImpl
+    </label>
+    <label class="checkbox-inline">
+        <input type="checkbox" name="generatorModule" value="Mapper"> Mapper
+    </label>
+    <label class="checkbox-inline">
+        <input type="checkbox" name="generatorModule" value="Xml"> Xml
+    </label>
+    <br><br>
+    <button type="button" class="btn btn-info">开始生成代码</button>
+</div>
+</body>
+</html>

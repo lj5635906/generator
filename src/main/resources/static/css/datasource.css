@@ -1,0 +1,39 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background: #F4F4F4;
+}
+#container{
+    width: 100%;
+    height: 100%;
+}
+
+#container .datasource{
+    width: 80%;
+    height: 80%;
+    margin-left: 10%;
+    margin-top: 6%;
+}
+
+#container .datasource .heard{
+    text-align: center;
+}
+
+#container .datasource .body{
+    margin-top: 2%;
+}
+#container .datasource .body .table .comment{
+    margin-top: 2%;
+    text-align: right;
+    width: auto;
+}
+#container .datasource .body table tr td input{
+    width: 60%;
+    height: 30px;
+    margin-left:30px ;
+}
+#container .datasource .foot{
+    margin-left: 70%;
+}

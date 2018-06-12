@@ -10,7 +10,7 @@ import lombok.Data;
  * @create 2017-08-19 10:23
  **/
 @Data
-public class EntityBean {
+public class EntityProperty {
 	/**
 	 * 主键名
 	 */

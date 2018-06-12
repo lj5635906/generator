@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>代码生成器</title>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/datasource.css">
+    <script type="text/javascript" src="js/public/jquery.js"></script>
+    <script type="text/javascript" src="js/system.js"></script>
+</head>
+<body>
+<div id="container">
+    <div class="datasource">
+        <div class="heard">
+            <h3>请设置系统相关参数</h3>
+        </div>
+        <div class="body" style="padding-left: 20%">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="inputTarget" class="col-sm-2 control-label">生成代码文件目录</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="target" id="inputTarget" placeholder="请设置生成代码文件目录 , 只支持生成到本地文件 . 如: F:/home/code/" value="F:/home/code/">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPackageName" class="col-sm-2 control-label">生成代码包名前缀</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="packageName" id="inputPackageName" placeholder="请设置生成代码包名前缀" value="com.home.customer.server">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputModuleName" class="col-sm-2 control-label">生成代码模块名</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="moduleName" id="inputModuleName" placeholder="请设置生成代码模块名(当前项可以不填)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fullyDefinedPackageName" class="col-sm-2 control-label">生成代码全限定包名为</label>
+                    <div class="col-sm-6">
+                        <span id="fullyDefinedPackageName"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">数据访问层类型</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="dataAccessType" id="inputDataAccessType">
+                            <option value="jpa">jpa</option>
+                            <option value="mybatis">mybatis</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fullyDefinedPackageName" class="col-sm-2 control-label">需要跳过表名前缀的数目</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="skipNumTable" id="inputSkipNumTable">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-6">
+                        <span>如: 表名 [home_sys_dictionary] 需设置跳过前缀数为 [2] , 生成实体名为 [Dictionary]</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fullyDefinedPackageName" class="col-sm-2 control-label">需要跳过字段前缀的数目</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="skipNumFiled" id="inputSkipNumFiled">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"></label>
+                    <div class="col-sm-6">
+                        <span>如: 表名 [fd_customer_name] 需设置跳过前缀数为 [1] , 生成属性名为 [CustomerName]</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" id="submitSystem" class="btn btn-default">确认</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

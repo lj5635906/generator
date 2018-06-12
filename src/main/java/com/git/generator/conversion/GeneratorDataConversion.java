@@ -2,9 +2,7 @@ package com.git.generator.conversion;
 
 import com.git.generator.config.GeneratorConfig;
 import com.git.generator.domain.Column;
-import com.git.generator.domain.EntityBean;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import com.git.generator.domain.EntityProperty;
 
 import java.util.*;
 
@@ -15,11 +13,7 @@ import java.util.*;
  * @email 190642964@qq.com
  * @create 2017-08-19 10:23
  **/
-@Component
 public class GeneratorDataConversion {
-
-    @Autowired
-    private GeneratorConfig generatorConfig;
 
     /**
      * 主键名称
@@ -35,8 +29,8 @@ public class GeneratorDataConversion {
      *
      * @return 转换后的数据集合，key实体名，value实体信息
      */
-    public Map<String, List<EntityBean>> conversion(Map<String, List<Column>> dbData) {
-        Map<String, List<EntityBean>> data = new HashMap<>(10);
+    public static Map<String, List<EntityProperty>> conversion(Map<String, List<Column>> dbData) {
+        Map<String, List<EntityProperty>> data = new HashMap<>(10);
         if (null == dbData || dbData.size() == 0) {
             return data;
         }
@@ -52,12 +46,12 @@ public class GeneratorDataConversion {
             // 当前表所有字段信息
             List<Column> columns = table.getValue();
             // 当前表所有字段信息转换后的EntityBean
-            List<EntityBean> beans = new ArrayList<>();
-            for (Column column : columns){
-                if(PRIMARY_NAME.equalsIgnoreCase(column.getName())){
+            List<EntityProperty> beans = new ArrayList<>();
+            for (Column column : columns) {
+                if (PRIMARY_NAME.equalsIgnoreCase(column.getName())) {
                     column.setName(PRIMARY_NAME);
                 }
-                EntityBean bean = new EntityBean();
+                EntityProperty bean = new EntityProperty();
                 bean.setComment(column.getComment());
                 bean.setEntityName(entityName);
                 bean.setAutoincrement(column.getAutoincrement());
@@ -72,24 +66,29 @@ public class GeneratorDataConversion {
                 bean.setTableName(tableName);
                 beans.add(bean);
             }
-            data.put(entityName,beans);
+            data.put(entityName, beans);
         }
         return data;
     }
 
     /**
      * 根据字段名获取属性名
+     *
      * @param filedName 字段名(fd_userName)
      * @return 属性名(userName)
      */
-    private String getPropertyName(String filedName){
+    private static String getPropertyName(String filedName) {
         StringBuffer propertyName = new StringBuffer();
         String[] names = filedName.split("_");
         for (int i = 0; i < names.length; i++) {
+            if (i < GeneratorConfig.SKIP_NUM_FILED) {
+                // 跳过字段前缀
+                continue;
+            }
             String name = names[i];
-            if (i==0){
+            if (i == GeneratorConfig.SKIP_NUM_FILED) {
                 propertyName.append(name.substring(0, 1).toLowerCase() + name.substring(1, name.length()));
-            }else {
+            } else {
                 propertyName.append(name.substring(0, 1).toUpperCase() + name.substring(1, name.length()));
             }
         }
@@ -98,10 +97,11 @@ public class GeneratorDataConversion {
 
     /**
      * 根据字段名获取属性名
+     *
      * @param filedName 字段名(fd_userName)
      * @return 属性名(userName)
      */
-    private String getPropertyNameUp(String filedName){
+    private static String getPropertyNameUp(String filedName) {
         StringBuffer properNameUp = new StringBuffer();
         String propertyName = getPropertyName(filedName);
         properNameUp.append(propertyName.substring(0, 1).toUpperCase());
@@ -115,12 +115,11 @@ public class GeneratorDataConversion {
      * @param tableName 表名(sys_admin_role)
      * @return 实体名称(AdminRole)
      */
-    private String getEntityName(String tableName) {
+    private static String getEntityName(String tableName) {
         StringBuffer entityName = new StringBuffer();
         String[] names = tableName.split("_");
-        int skipNum = generatorConfig.getSkipNum();
         for (int i = 0; i < names.length; i++) {
-            if (i < skipNum) {
+            if (i < GeneratorConfig.SKIP_NUM_TABLE) {
                 // 跳过表名前缀
                 continue;
             }
