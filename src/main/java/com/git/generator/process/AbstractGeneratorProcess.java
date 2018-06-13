@@ -80,5 +80,7 @@ public abstract class AbstractGeneratorProcess implements Generator{
         // 根据模板生成文件
         Writer out = new OutputStreamWriter(new FileOutputStream(paintingTarget), GeneratorConstant.DEFAULT_CHARSET);
         template.process(entityData, out);
+        out.flush();
+        out.close();
     }
 }
