@@ -3,6 +3,7 @@ package com.git.generator.test;
 import com.git.generator.GeneratorApplication;
 import com.git.generator.config.DataSourceConfig;
 import com.git.generator.config.GeneratorConfig;
+import com.git.generator.constant.DbType;
 import com.git.generator.conversion.GeneratorDataConversion;
 import com.git.generator.domain.Column;
 import com.git.generator.domain.EntityProperty;
@@ -38,10 +39,12 @@ public class GeneratorTest {
     public void getTableInfo() {
         try {
             DataSourceConfig config = new DataSourceConfig();
-            config.setUrl("jdbc:mysql://www.luojie.site:3306/home?Unicode=true&characterEncoding=UTF-8");
-            config.setDriverClassName("com.mysql.jdbc.Driver");
+            config.setHost("www.luojie.site");
+            config.setPort(3306);
+            config.setDatabaseName("home");
             config.setUsername("root");
-            config.setPassword("");
+            config.setPassword("luojie.site");
+            config.setDbType(DbType.MySql.getDbType());
             GeneratorDataBaseHandler.dataSourceConfig = config;
 
             // # 数据访问层使用框架 jpa、mybatis

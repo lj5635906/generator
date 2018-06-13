@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>代码生成器-欢迎</title>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <script type="text/javascript" src="js/sweetalert.min.js"></script>
+    <script type="text/javascript" src="js/public/jquery.js"></script>
+</head>
+<body>
+<div class="container">
+    <div>
+        <button type="button" class="btn btn-info">开始生成代码</button>
+    </div>
+</div>
+<script type="text/javascript">
+        var param ={
+            "tableNames":["home_apply_cooperation","home_apply_cooperation_record"],
+            "modules":["Entity","Repository"]
+        };
+    $(".btn").on("click", function () {
+        swal({
+            title: "确定开始生成代码吗？",
+            text: "确认后 , 将进行生成代码",
+            icon: "info",
+            buttons: true,
+            dangerMode: true,
+            buttons: {
+                cancel: "取消",
+                catch: {
+                    text: "开始",
+                    value: "catch",
+                    closeModal: false,
+                },
+            }
+        }).then(value => {
+           return fetch("http://localhost:8080/generator", {
+                method: "POST",
+                    headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                body: JSON.stringify(param)
+            });
+        }).then(result => {
+            console.log(result)
+            return result.status;
+        }).then(code => {
+            if(code == 200){
+                swal({
+                    title: "漂亮！",
+                    text: "代码已经生成完毕 , 请开始你的表演吧。",
+                    icon: "success",
+                    showConfirmButton: false
+                }).then((value) => {
+                    // window.location.href = "show-table.html";
+                });
+            }else {
+                swal({
+                    title: "红色警报！",
+                    text: "代码生成失败 , 请检查服务器。",
+                    icon: "warning"
+                });
+            }
+        }).catch(err => {
+            if (err) {
+                swal({
+                    title: "红色警报！",
+                    text: "服务器出现异常 , 请检查服务器是否正常运行。",
+                    icon: "error"
+                });
+            } else {
+                swal.stopLoading();
+                swal.close();
+            }
+        });
+    });
+</script>
+</body>
+</html>

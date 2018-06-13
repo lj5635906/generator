@@ -2,6 +2,7 @@ package com.git.generator.controller;
 
 import com.git.generator.config.DataSourceConfig;
 import com.git.generator.config.GeneratorConfig;
+import com.git.generator.constant.GeneratorConstant;
 import com.git.generator.controller.command.DataSourceCommand;
 import com.git.generator.controller.command.GeneratorCommand;
 import com.git.generator.controller.command.SystemCommand;
@@ -11,11 +12,13 @@ import com.git.generator.handler.GeneratorDataBaseHandler;
 import com.git.generator.service.GeneratorService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -39,30 +42,18 @@ public class GeneratorController {
      *
      * @param command 数据源
      */
-    @PostMapping("/verify-connection")
-    public ResultVo testConnection(@RequestBody DataSourceCommand command) {
+    @PostMapping("/set-datasource")
+    public ResultVo connection(@RequestBody DataSourceCommand command) {
         DataSourceConfig config = new DataSourceConfig();
         BeanUtils.copyProperties(command, config);
         GeneratorDataBaseHandler.dataSourceConfig = config;
         try {
-            generatorDataBaseHandler.getConnection();
+            generatorDataBaseHandler.getConnection(generatorDataBaseHandler.getUrl());
             return ResultVo.ok();
         } catch (Exception e) {
+            e.printStackTrace();
             return ResultVo.fail();
         }
-    }
-
-    /**
-     * 设置数据源
-     *
-     * @param command 数据源
-     */
-    @PostMapping("/set-datasource")
-    public ResultVo setDatasource(@RequestBody DataSourceCommand command) {
-        DataSourceConfig config = new DataSourceConfig();
-        BeanUtils.copyProperties(command, config);
-        GeneratorDataBaseHandler.dataSourceConfig = config;
-        return ResultVo.ok();
     }
 
     /**
@@ -78,6 +69,35 @@ public class GeneratorController {
         GeneratorConfig.SKIP_NUM_TABLE = command.getSkipNumTable();
         GeneratorConfig.SKIP_NUM_FILED = command.getSkipNumFiled();
         GeneratorConfig.target = command.getTarget();
+        return ResultVo.ok();
+    }
+
+    /**
+     * 获取当前数据访问层框架 允许生成的模块
+     */
+    @GetMapping("/modules")
+    public ResultVo getModules() {
+        if (GeneratorConstant.DATA_ACCESS_TYPE_JPA.equals(GeneratorConfig.dataAccessType)) {
+            List<String> module = new ArrayList<String>() {{
+                this.add("Entity");
+                this.add("Repository");
+                this.add("Service");
+                this.add("ServiceImpl");
+            }};
+            return ResultVo.ok(module);
+        } else if (GeneratorConstant.DATA_ACCESS_TYPE_MYBATIS.equals(GeneratorConfig.dataAccessType)) {
+            List<String> module = new ArrayList<String>() {{
+                this.add("Entity");
+                this.add("Repository");
+                this.add("Service");
+                this.add("ServiceImpl");
+                this.add("Mapper");
+                this.add("Xml");
+            }};
+            return ResultVo.ok(module);
+        } else {
+
+        }
         return ResultVo.ok();
     }
 

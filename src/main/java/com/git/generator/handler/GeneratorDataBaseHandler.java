@@ -1,8 +1,10 @@
 package com.git.generator.handler;
 
 import com.git.generator.config.DataSourceConfig;
+import com.git.generator.constant.DbType;
 import com.git.generator.domain.Column;
 import com.git.generator.domain.Table;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,13 +32,23 @@ public class GeneratorDataBaseHandler {
      * @return Connection
      * @throws Exception Exception
      */
-    public Connection getConnection() throws Exception {
-        if (null == dataSourceConfig){
+    public Connection getConnection(String url) throws Exception {
+        if (null == dataSourceConfig) {
             throw new Exception("请设置数据源信息");
         }
-        Class.forName(dataSourceConfig.getDriverClassName());
+        Class.forName(getDriverClassName());
         // 获取链接
-        return DriverManager.getConnection(dataSourceConfig.getUrl(), dataSourceConfig.getUsername(), dataSourceConfig.getPassword());
+        return DriverManager.getConnection(url, dataSourceConfig.getUsername(), dataSourceConfig.getPassword());
+    }
+
+    /**
+     * 获取数据库连接
+     * @param url url
+     * @return Connection
+     * @throws Exception Exception
+     */
+    public Connection getConnectionUseInformationSchema(String url) throws Exception {
+        return getConnection(url+ "&useInformationSchema=true");
     }
 
     /**
@@ -45,17 +57,15 @@ public class GeneratorDataBaseHandler {
      * @return Map<String, Table> <表名,表信息>
      */
     public Map<String, Table> getAllTable() throws Exception {
-        if (null == dataSourceConfig){
+        if (null == dataSourceConfig) {
             throw new Exception("请设置数据源信息");
         }
-        Map<String, Table> map = new HashMap<>(2);
+        Map<String, Table> map = new HashMap<>(10);
         Connection connection = null;
         ResultSet resultSet = null;
         ResultSet primaryResultSet = null;
         try {
-            Class.forName(dataSourceConfig.getDriverClassName());
-            // 获取链接
-            connection = DriverManager.getConnection(dataSourceConfig.getUrl() + "&useInformationSchema=true", dataSourceConfig.getUsername(), dataSourceConfig.getPassword());
+            connection = getConnectionUseInformationSchema(getUrl());
             //  获取一个 DatabaseMetaData 对象，该对象包含关于此 Connection 对象所连接的数据库的元数据。
             DatabaseMetaData databaseMetaData = connection.getMetaData();
             // 获取当前表字段信息
@@ -97,7 +107,7 @@ public class GeneratorDataBaseHandler {
         ResultSet allTableResultSet = null;
         ResultSet tableResultSet = null;
         try {
-            connection = getConnection();
+            connection = getConnection(getUrl());
             // 获取此 Connection 对象的当前目录名称
             String currentCatalog = connection.getCatalog();
             //  获取一个 DatabaseMetaData 对象，该对象包含关于此 Connection 对象所连接的数据库的元数据。
@@ -136,7 +146,7 @@ public class GeneratorDataBaseHandler {
         ResultSet resultSet = null;
         try {
             // 获取链接
-            connection = getConnection();
+            connection = getConnection(getUrl());
             // 获取此 Connection 对象的当前目录名称
             String currentCatalog = connection.getCatalog();
             //  获取一个 DatabaseMetaData 对象，该对象包含关于此 Connection 对象所连接的数据库的元数据。
@@ -206,6 +216,40 @@ public class GeneratorDataBaseHandler {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    /**
+     * 获取驱动类名
+     *
+     * @return 驱动类名
+     */
+    public String getDriverClassName() throws Exception {
+        if (StringUtils.equalsIgnoreCase(DbType.MySql.getDbType(), dataSourceConfig.getDbType())) {
+            return DbType.MySql.getDriverClassName();
+        } else if (StringUtils.equalsIgnoreCase(DbType.Oracle.getDbType(), dataSourceConfig.getDbType())) {
+            return DbType.Oracle.getDriverClassName();
+        } else if (StringUtils.equalsIgnoreCase(DbType.SQLServer.getDbType(), dataSourceConfig.getDbType())) {
+            return DbType.SQLServer.getDriverClassName();
+        } else {
+            throw new Exception("当前数据库类型【" + dataSourceConfig.getDbType() + "】待开发");
+        }
+    }
+
+    /**
+     * 获取数据库连接地址
+     *
+     * @return url
+     */
+    public String getUrl() throws Exception {
+        if (StringUtils.equalsIgnoreCase(DbType.MySql.getDbType(), dataSourceConfig.getDbType())) {
+            return "jdbc:mysql://" + dataSourceConfig.getHost() + ":" + dataSourceConfig.getPort() + "/" + dataSourceConfig.getDatabaseName() + "?Unicode=true&characterEncoding=UTF-8";
+        } else if (StringUtils.equalsIgnoreCase(DbType.Oracle.getDbType(), dataSourceConfig.getDbType())) {
+            return "jdbc:oracle:thin:@" + dataSourceConfig.getHost() + ":" + dataSourceConfig.getPort() + ":" + dataSourceConfig.getDatabaseName();
+        } else if (StringUtils.equalsIgnoreCase(DbType.SQLServer.getDbType(), dataSourceConfig.getDbType())) {
+            return "jdbc:sqlserver://" + dataSourceConfig.getHost() + ":" + dataSourceConfig.getPort() + ";DatabaseName=" + dataSourceConfig.getDatabaseName();
+        } else {
+            throw new Exception("当前数据库类型【" + dataSourceConfig.getDbType() + "】待开发");
         }
     }
 

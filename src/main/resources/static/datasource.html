@@ -4,6 +4,7 @@
     <title>代码生成器</title>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/datasource.css">
+    <script type="text/javascript" src="js/sweetalert.min.js"></script>
     <script type="text/javascript" src="js/public/jquery.js"></script>
     <script type="text/javascript" src="js/datasource.js"></script>
 </head>
@@ -16,29 +17,43 @@
         <div class="body" style="padding-left: 20%">
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label for="inputUrl" class="col-sm-2 control-label">连接地址</label>
+                    <label for="inputHost" class="col-sm-2 control-label">数据库访问地址</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="url" id="inputUrl" placeholder="请设置连接地址,如: jdbc:mysql://127.0.0.1:3306/mysql" />
+                        <input type="text" class="form-control" name="host" id="inputHost" placeholder="请设置数据库访问地址,如: 127.0.0.1" value="www.luojie.site" />
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">数据库驱动类型</label>
+                    <label for="inputPort" class="col-sm-2 control-label">数据库访问端口</label>
                     <div class="col-sm-6">
-                        <select class="form-control" name="driverClassName" id="inputDriverClassName">
-                            <option value="com.mysql.jdbc.Driver">com.mysql.jdbc.Driver</option>
-                        </select>
+                        <input type="text" class="form-control" name="port" id="inputPort" placeholder="请设置数据库访问端口" value="3306">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputDatabaseName" class="col-sm-2 control-label">访问数据库名称</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" name="databaseName" id="inputDatabaseName" placeholder="请设置访问数据库名称" value="home">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputUsername" class="col-sm-2 control-label">数据库用户名</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="username" id="inputUsername" placeholder="请设置用户名" >
+                        <input type="text" class="form-control" name="username" id="inputUsername" placeholder="请设置用户名" value="root">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-2 control-label">数据库用户名</label>
+                    <label class="col-sm-2 control-label">数据库访问密码</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" name="password" id="inputPassword" placeholder="请设置密码">
+                        <input type="text" class="form-control" name="password" id="inputPassword" placeholder="请设置数据库访问密码">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">数据库类型</label>
+                    <div class="col-sm-6">
+                        <select class="form-control" name="dbType" id="inputDbType">
+                            <option value="MySql">MySql</option>
+                            <option value="Oracle">Oracle</option>
+                            <option value="SQLServer">SQLServer</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">

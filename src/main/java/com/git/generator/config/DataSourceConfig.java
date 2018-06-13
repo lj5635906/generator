@@ -11,8 +11,22 @@ import lombok.Data;
  **/
 @Data
 public class DataSourceConfig {
-    private String driverClassName;
-    private String url;
+    /**
+     * 数据库类型
+     */
+    private String dbType;
+    /**
+     * 数据库地址
+     */
+    private String host;
+    /**
+     * 端口
+     */
+    private int port;
+    /**
+     * 数据库名称
+     */
+    private String databaseName;
     private String username;
     private String password;
 }
