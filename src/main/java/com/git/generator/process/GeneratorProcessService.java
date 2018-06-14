@@ -24,15 +24,15 @@ import java.util.Map;
 public class GeneratorProcessService extends AbstractGeneratorProcess {
 
     /**
-     * 生成entity文件目标目录
+     * 生成 service 文件目标目录
      */
     private String TARGET_SERVICE = "service/";
     /**
-     * entity 模板名
+     * Service 模板名
      */
     private String TEMPLATE_SERVICE_NAME = "Service.ftl";
     /**
-     * Repository.java文件后缀名
+     * Service.java文件后缀名
      */
     private String JAVA_SERVICE_SUFFIX = "Service.java";
 

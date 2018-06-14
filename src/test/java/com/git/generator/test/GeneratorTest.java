@@ -4,6 +4,7 @@ import com.git.generator.GeneratorApplication;
 import com.git.generator.config.DataSourceConfig;
 import com.git.generator.config.GeneratorConfig;
 import com.git.generator.constant.DbType;
+import com.git.generator.constant.GeneratorConstant;
 import com.git.generator.conversion.GeneratorDataConversion;
 import com.git.generator.domain.Column;
 import com.git.generator.domain.EntityProperty;
@@ -43,16 +44,16 @@ public class GeneratorTest {
             config.setPort(3306);
             config.setDatabaseName("home");
             config.setUsername("root");
-            config.setPassword("luojie.site");
+            config.setPassword("");
             config.setDbType(DbType.MySql.getDbType());
             GeneratorDataBaseHandler.dataSourceConfig = config;
 
             // # 数据访问层使用框架 jpa、mybatis
-            GeneratorConfig.dataAccessType = "jpa";
+            GeneratorConfig.dataAccessType = GeneratorConstant.DATA_ACCESS_TYPE_MYBATIS;
             // # 生成代码模块名
             GeneratorConfig.moduleName = null;
             // # 生成代码包名前缀
-            GeneratorConfig.packageName = "com.home.customer.server";
+            GeneratorConfig.packageName = "com.example";
             // # 需要跳过表名前缀的数目
             GeneratorConfig.SKIP_NUM_TABLE = 1;
             // # 需要跳过字段前缀的数目
@@ -61,14 +62,18 @@ public class GeneratorTest {
             GeneratorConfig.target = "F:/home/code/";
 
             List<String> tableNames = new ArrayList<String>() {{
-                this.add("home_building");
+                this.add("home_customer");
                 this.add("home_building_position");
                 this.add("home_customer");
             }};
 
             List<String> modules = new ArrayList<String>() {{
-                this.add("Entity");
-                this.add("Repository");
+//                this.add("Entity");
+//                this.add("Repository");
+//                this.add("Service");
+//                this.add("ServiceImpl");
+                this.add("Mapper");
+//                this.add("Xml");
             }};
 
             generatorService.generator(tableNames, modules);

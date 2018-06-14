@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 代码生成 - 生成实体类
+ * 代码生成 - JPA 数据访问层
  *
  * @author roger
  * @email 190642964@qq.com
@@ -25,11 +25,11 @@ import java.util.Map;
 public class GeneratorProcessRepository extends AbstractGeneratorProcess {
 
     /**
-     * 生成entity文件目标目录
+     * 生成 repository 文件目标目录
      */
     private String TARGET_REPOSITORY = "repository/";
     /**
-     * entity 模板名
+     * Repository 模板名
      */
     private String TEMPLATE_REPOSITORY_NAME = "Repository.ftl";
     /**
@@ -70,7 +70,6 @@ public class GeneratorProcessRepository extends AbstractGeneratorProcess {
             data.put("entityName", entity.getKey());
             String tableName = entity.getValue().get(0).getTableName();
             data.put("entityComment", table.get(tableName).getComment());
-            data.put("tableName", tableName);
             for (EntityProperty bean : entity.getValue()) {
                 String primaryColumnName = table.get(tableName).getPrimaryColumnName();
                 if (StringUtils.equalsIgnoreCase(primaryColumnName, bean.getColumnName())) {

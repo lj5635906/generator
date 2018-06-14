@@ -1,35 +1,104 @@
-package com.control.persistence.repository.${moduleName};
+<#if moduleName??>
+package ${packageName}.mapper.${moduleName};
+<#else>
+package ${packageName}.mapper;
+</#if>
 
-import com.control.domain.template.${moduleName}.${entity_name};
-import com.control.persistence.core.ControlMapper;
-import org.apache.ibatis.annotations.Select;
-import com.control.persistence.repository.${moduleName}.${entity_name}Repository;
+<#if moduleName??>
+import ${packageName}.entity.${moduleName}.${entityName};
+<#else>
+import ${packageName}.entity.${entityName};
+</#if>
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-import java.util.Map;
 
 /**
-* ${entity_name_remark} 基础支持，该文件添加后不做修改
-*
-* @author Roger
-* @email 190642964@qq.com
-* @create ${.now}
-*/
-public interface ${entity_name}Mapper extends ${entity_name}Repository,ControlMapper<${entity_name}> {
+ * ${entityComment} 基础支持，该文件添加后不做修改
+ *
+ * @author Roger
+ * @email 190642964@qq.com
+ * @create ${.now}
+ */
+@Mapper
+public interface ${entityName}Mapper {
 
     /**
-      * ${entity_name_remark}-通过XML查询数据,参数类型为Map<实体字段名,参数值>
-      * @param param Map<String,Object>
-      * @return List<${entity_name}>
-    */
-    List<${entity_name}> select${entity_name}List(Map<String,Object> param);
+     * 新增数据
+     *
+     * @param ${entityNameLow} ${entityName}
+     * @return 数据库影响行数
+     */
+    int insert(${entityName} ${entityNameLow});
 
     /**
-      * ${entity_name_remark}-根据主键ID和删除标志查询该记录是否删除
-      * @param id 主键标志
-      * @return ${entity_name}
-    */
-    @Select("select * from ${tableName} td where id = ${r"#{id}"} and delTag = 0")
-    ${entity_name} select${entity_name}(Long id);
+     * 新增数据并回写主键
+     *
+     * @param ${entityNameLow} ${entityName}
+     * @return 数据库影响行数
+     */
+    int insertUseGeneratedKeys(${entityName} ${entityNameLow});
 
+    /**
+     * 新增数据(字段不为空) 并回写主键
+     *
+     * @param ${entityNameLow} ${entityName}
+     * @return 数据库影响行数
+     */
+    int insertSelective(${entityName} ${entityNameLow});
+
+    /**
+     * 根据主键删除数据
+     *
+     * @param primaryKey 主键
+     * @return 数据库影响行数
+     */
+    int deleteByPrimaryKey(${primaryDataType} primaryKey);
+
+    /**
+     * 根据 ${entityName} 删除数据
+     * @param ${entityNameLow} ${entityName}
+     * @return 数据库影响行数
+     */
+    int delete(${entityName} ${entityNameLow});
+
+    /**
+     * 根据 ${entityName} 主键 修改其所有内容
+     *
+     * @param ${entityNameLow} ${entityName}
+     * @return 数据库影响行数
+     */
+    int updateByPrimaryKey(${entityName} ${entityNameLow});
+
+    /**
+     * 根据 ${entityName} 主键 修改其(字段不为空)内容
+     *
+     * @param ${entityNameLow} ${entityName}
+     * @return 数据库影响行数
+     */
+    int updateByPrimaryKeySelective(${entityName} ${entityNameLow});
+
+    /**
+     * 根据 ${entityName} 统计数据库中的行数
+     *
+     * @param ${entityNameLow} ${entityName}
+     * @return count值
+     */
+    int selectCount(${entityName} ${entityNameLow});
+
+    /**
+     * 根据 主键 获取 ${entityName}
+     *
+     * @param primaryKey 主键
+     * @return ${entityName}
+     */
+    ${entityName} selectByPrimaryKey(${primaryDataType} primaryKey);
+
+    /**
+     * 根据 ${entityName} 获取一个集合
+     *
+     * @param ${entityNameLow} ${entityName}
+     * @return List<${entityName}>
+     */
+    List<${entityName}> select(Customer customer);
 }
