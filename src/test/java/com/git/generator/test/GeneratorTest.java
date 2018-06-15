@@ -59,21 +59,20 @@ public class GeneratorTest {
             // # 需要跳过字段前缀的数目
             GeneratorConfig.SKIP_NUM_FILED = 0;
             // # 生成代码文件目录
-            GeneratorConfig.target = "F:/home/code/";
+            GeneratorConfig.target = "D:\\work\\workspace\\idea\\tk-boot\\src\\main\\java\\com\\example\\";
 
             List<String> tableNames = new ArrayList<String>() {{
                 this.add("home_customer");
                 this.add("home_building_position");
-                this.add("home_customer");
             }};
 
             List<String> modules = new ArrayList<String>() {{
-//                this.add("Entity");
+                this.add("Entity");
 //                this.add("Repository");
-//                this.add("Service");
-//                this.add("ServiceImpl");
+                this.add("Service");
+                this.add("ServiceImpl");
                 this.add("Mapper");
-//                this.add("Xml");
+                this.add("MapperXml");
             }};
 
             generatorService.generator(tableNames, modules);

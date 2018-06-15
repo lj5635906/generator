@@ -1,14 +1,6 @@
-<#if moduleName??>
-package ${packageName}.mapper.${moduleName};
-<#else>
-package ${packageName}.mapper;
-</#if>
+package ${mapperFullPackageName};
 
-<#if moduleName??>
-import ${packageName}.entity.${moduleName}.${entityName};
-<#else>
-import ${packageName}.entity.${entityName};
-</#if>
+import ${entityFullPackageName}.${entityName};
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -100,5 +92,5 @@ public interface ${entityName}Mapper {
      * @param ${entityNameLow} ${entityName}
      * @return List<${entityName}>
      */
-    List<${entityName}> select(Customer customer);
+    List<${entityName}> select(${entityName} ${entityNameLow});
 }

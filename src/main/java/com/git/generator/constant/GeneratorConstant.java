@@ -22,10 +22,6 @@ public interface GeneratorConstant {
      */
     String DATA_ACCESS_TYPE_MYBATIS = "mybatis";
     /**
-     * freemarker 模板文件地址
-     */
-    String DEFAULT_TEMPLATE = "classpath:template";
-    /**
      * freemarker 模板文件地址 - JPA
      */
     String DEFAULT_TEMPLATE_JPA = "classpath:template\\jpa";
@@ -33,4 +29,30 @@ public interface GeneratorConstant {
      * freemarker 模板文件地址 - MYBATIS
      */
     String DEFAULT_TEMPLATE_MYBATIS = "classpath:template\\mybatis";
+
+    /**
+     * 文件夹分割符
+     */
+    String FILE_DELIMITER = "/";
+
+    /**
+     * entity 包名
+     */
+    String PACKAGE_NAME_ENTITY = "domain";
+    /**
+     * mapper 包名
+     */
+    String PACKAGE_NAME_MAPPER = "mapper";
+    /**
+     * Repository 包名
+     */
+    String PACKAGE_NAME_REPOSITORY = "repository";
+    /**
+     * service 包名
+     */
+    String PACKAGE_NAME_SERVICE = "service";
+    /**
+     * service impl 包名
+     */
+    String PACKAGE_NAME_SERVICE_IMPL = "impl";
 }

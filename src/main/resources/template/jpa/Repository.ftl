@@ -1,14 +1,6 @@
-<#if moduleName??>
-package ${packageName}.repository.${moduleName};
-<#else>
-package ${packageName}.repository;
-</#if>
+package ${repositoryFullPackageName};
 
-<#if moduleName??>
-import ${packageName}.entity.${moduleName}.${entityName};
-<#else>
-import ${packageName}.entity.${entityName};
-</#if>
+import ${entityFullPackageName}.${entityName};
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

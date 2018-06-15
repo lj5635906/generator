@@ -1,8 +1,4 @@
-<#if moduleName??>
-package ${packageName}.entity.${moduleName};
-<#else>
-package ${packageName}.entity;
-</#if>
+package ${entityFullPackageName};
 
 import lombok.Data;
 

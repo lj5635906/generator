@@ -92,7 +92,7 @@ public class GeneratorController {
                 this.add("Service");
                 this.add("ServiceImpl");
                 this.add("Mapper");
-                this.add("Xml");
+                this.add("MapperXml");
             }};
             return ResultVo.ok(module);
         } else {

@@ -1,8 +1,10 @@
 package com.git.generator.process;
 
 import com.git.generator.config.GeneratorConfig;
+import com.git.generator.constant.GeneratorConstant;
 import com.git.generator.domain.EntityProperty;
 import com.git.generator.domain.Table;
+import com.git.generator.util.GeneratorUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.apache.commons.lang.StringUtils;
@@ -25,10 +27,6 @@ import java.util.Map;
 public class GeneratorProcessRepository extends AbstractGeneratorProcess {
 
     /**
-     * 生成 repository 文件目标目录
-     */
-    private String TARGET_REPOSITORY = "repository/";
-    /**
      * Repository 模板名
      */
     private String TEMPLATE_REPOSITORY_NAME = "Repository.ftl";
@@ -45,7 +43,7 @@ public class GeneratorProcessRepository extends AbstractGeneratorProcess {
     @Override
     protected void action(Configuration config, Map<String, Table> table, Map<String, List<EntityProperty>> tableColumn) throws Exception {
         // 生成代码目录
-        String target = GeneratorConfig.target + TARGET_REPOSITORY;
+        String target = GeneratorConfig.target + GeneratorConstant.PACKAGE_NAME_REPOSITORY + GeneratorConstant.FILE_DELIMITER;
         Iterator<Map.Entry<String, List<EntityProperty>>> entities = tableColumn.entrySet().iterator();
 
         while (entities.hasNext()) {
@@ -65,8 +63,8 @@ public class GeneratorProcessRepository extends AbstractGeneratorProcess {
             }
             // 设置数据
             Map<String, Object> data = new HashMap<>(20);
-            data.put("packageName", GeneratorConfig.packageName);
-            data.put("moduleName", GeneratorConfig.moduleName);
+            data.put("entityFullPackageName",  GeneratorUtil.getEntityFullClassName(GeneratorConfig.packageName, GeneratorConfig.moduleName));
+            data.put("repositoryFullPackageName",  GeneratorUtil.getRepositoryFullClassName(GeneratorConfig.packageName, GeneratorConfig.moduleName));
             data.put("entityName", entity.getKey());
             String tableName = entity.getValue().get(0).getTableName();
             data.put("entityComment", table.get(tableName).getComment());
