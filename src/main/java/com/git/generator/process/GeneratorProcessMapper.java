@@ -41,7 +41,7 @@ public class GeneratorProcessMapper extends AbstractGeneratorProcess {
 
     @Override
     protected String getDataAccessType() {
-        return GeneratorConstant.DATA_ACCESS_TYPE_MYBATIS;
+        return GeneratorConfig.dataAccessType;
     }
 
     @Override

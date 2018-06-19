@@ -1,5 +1,6 @@
 package com.git.generator.config;
 
+import com.git.generator.constant.DbType;
 import lombok.Data;
 
 /**
@@ -11,22 +12,23 @@ import lombok.Data;
  **/
 @Data
 public class DataSourceConfig {
+    private DataSourceConfig(){}
     /**
      * 数据库类型
      */
-    private String dbType;
+    public static String dbType = DbType.MySql.getDbType();
     /**
      * 数据库地址
      */
-    private String host;
+    public static String host = "localhost";
     /**
      * 端口
      */
-    private int port;
+    public static int port = 3306;
     /**
      * 数据库名称
      */
-    private String databaseName;
-    private String username;
-    private String password;
+    public static String databaseName;
+    public static String username;
+    public static String password;
 }

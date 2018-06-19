@@ -5,7 +5,6 @@ import com.git.generator.constant.DbType;
 import com.git.generator.domain.Column;
 import com.git.generator.domain.Table;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.sql.*;
@@ -24,8 +23,6 @@ import java.util.Map;
 @Component
 public class GeneratorDataBaseHandler {
 
-    public static DataSourceConfig dataSourceConfig = null;
-
     /**
      * 获取数据库连接
      *
@@ -33,22 +30,24 @@ public class GeneratorDataBaseHandler {
      * @throws Exception Exception
      */
     public Connection getConnection(String url) throws Exception {
-        if (null == dataSourceConfig) {
-            throw new Exception("请设置数据源信息");
-        }
         Class.forName(getDriverClassName());
         // 获取链接
-        return DriverManager.getConnection(url, dataSourceConfig.getUsername(), dataSourceConfig.getPassword());
+        return DriverManager.getConnection(url, DataSourceConfig.username, DataSourceConfig.password);
     }
 
     /**
      * 获取数据库连接
+     *
      * @param url url
      * @return Connection
      * @throws Exception Exception
      */
     public Connection getConnectionUseInformationSchema(String url) throws Exception {
-        return getConnection(url+ "&useInformationSchema=true");
+        if (StringUtils.equalsIgnoreCase(DbType.MySql.getDbType(), DataSourceConfig.dbType)) {
+            return getConnection(url + "&useInformationSchema=true");
+        } else {
+            throw new Exception("当前数据库类型【" + DataSourceConfig.dbType + "】 读取表信息 待开发");
+        }
     }
 
     /**
@@ -57,9 +56,6 @@ public class GeneratorDataBaseHandler {
      * @return Map<String, Table> <表名,表信息>
      */
     public Map<String, Table> getAllTable() throws Exception {
-        if (null == dataSourceConfig) {
-            throw new Exception("请设置数据源信息");
-        }
         Map<String, Table> map = new HashMap<>(10);
         Connection connection = null;
         ResultSet resultSet = null;
@@ -225,14 +221,14 @@ public class GeneratorDataBaseHandler {
      * @return 驱动类名
      */
     public String getDriverClassName() throws Exception {
-        if (StringUtils.equalsIgnoreCase(DbType.MySql.getDbType(), dataSourceConfig.getDbType())) {
+        if (StringUtils.equalsIgnoreCase(DbType.MySql.getDbType(), DataSourceConfig.dbType)) {
             return DbType.MySql.getDriverClassName();
-        } else if (StringUtils.equalsIgnoreCase(DbType.Oracle.getDbType(), dataSourceConfig.getDbType())) {
+        } else if (StringUtils.equalsIgnoreCase(DbType.Oracle.getDbType(), DataSourceConfig.dbType)) {
             return DbType.Oracle.getDriverClassName();
-        } else if (StringUtils.equalsIgnoreCase(DbType.SQLServer.getDbType(), dataSourceConfig.getDbType())) {
+        } else if (StringUtils.equalsIgnoreCase(DbType.SQLServer.getDbType(), DataSourceConfig.dbType)) {
             return DbType.SQLServer.getDriverClassName();
         } else {
-            throw new Exception("当前数据库类型【" + dataSourceConfig.getDbType() + "】待开发");
+            throw new Exception("当前数据库类型【" + DataSourceConfig.dbType + "】待开发");
         }
     }
 
@@ -242,22 +238,15 @@ public class GeneratorDataBaseHandler {
      * @return url
      */
     public String getUrl() throws Exception {
-        if (StringUtils.equalsIgnoreCase(DbType.MySql.getDbType(), dataSourceConfig.getDbType())) {
-            return "jdbc:mysql://" + dataSourceConfig.getHost() + ":" + dataSourceConfig.getPort() + "/" + dataSourceConfig.getDatabaseName() + "?Unicode=true&characterEncoding=UTF-8";
-        } else if (StringUtils.equalsIgnoreCase(DbType.Oracle.getDbType(), dataSourceConfig.getDbType())) {
-            return "jdbc:oracle:thin:@" + dataSourceConfig.getHost() + ":" + dataSourceConfig.getPort() + ":" + dataSourceConfig.getDatabaseName();
-        } else if (StringUtils.equalsIgnoreCase(DbType.SQLServer.getDbType(), dataSourceConfig.getDbType())) {
-            return "jdbc:sqlserver://" + dataSourceConfig.getHost() + ":" + dataSourceConfig.getPort() + ";DatabaseName=" + dataSourceConfig.getDatabaseName();
+        if (StringUtils.equalsIgnoreCase(DbType.MySql.getDbType(), DataSourceConfig.dbType)) {
+            return "jdbc:mysql://" + DataSourceConfig.host + ":" + DataSourceConfig.port + "/" + DataSourceConfig.databaseName + "?Unicode=true&characterEncoding=UTF-8";
+        } else if (StringUtils.equalsIgnoreCase(DbType.Oracle.getDbType(), DataSourceConfig.dbType)) {
+            return "jdbc:oracle:thin:@" + DataSourceConfig.host + ":" + DataSourceConfig.port + ":" + DataSourceConfig.databaseName;
+        } else if (StringUtils.equalsIgnoreCase(DbType.SQLServer.getDbType(), DataSourceConfig.dbType)) {
+            return "jdbc:sqlserver://" + DataSourceConfig.host + ":" + DataSourceConfig.port + ";DatabaseName=" + DataSourceConfig.databaseName;
         } else {
-            throw new Exception("当前数据库类型【" + dataSourceConfig.getDbType() + "】待开发");
+            throw new Exception("当前数据库类型【" + DataSourceConfig.dbType + "】待开发");
         }
     }
 
-    public static DataSourceConfig getDataSourceConfig() {
-        return dataSourceConfig;
-    }
-
-    public static void setDataSourceConfig(DataSourceConfig dataSourceConfig) {
-        GeneratorDataBaseHandler.dataSourceConfig = dataSourceConfig;
-    }
 }

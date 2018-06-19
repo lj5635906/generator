@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Data
 public class GeneratorConfig {
 
+    private GeneratorConfig(){}
     /**
      * 生成代码文件目录
      */

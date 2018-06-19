@@ -9,6 +9,7 @@ import com.git.generator.handler.GeneratorProcessHandler;
 import com.git.generator.process.Generator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -38,8 +39,15 @@ public class GeneratorService {
 
         // 获取数据库所有表信息
         Map<String, Table> tableMap = generatorDataBaseHandler.getAllTable();
+
         // 获取需要生成表的信息
-        Map<String, List<Column>> data = generatorDataBaseHandler.getAllTableDetailByTableNames(tableNames);
+        Map<String, List<Column>> data = null;
+        if (CollectionUtils.isEmpty(tableNames)){
+            data = generatorDataBaseHandler.getAllTableDetail();
+        }else {
+            data = generatorDataBaseHandler.getAllTableDetailByTableNames(tableNames);
+        }
+
         // 转换 FreeMarker 模板需要的数据
         Map<String, List<EntityProperty>> beans = GeneratorDataConversion.conversion(data);
 

@@ -1,16 +1,17 @@
 package com.git.generator.process;
 
-import com.git.generator.config.GeneratorConfig;
 import com.git.generator.config.GeneratorConfiguration;
 import com.git.generator.constant.GeneratorConstant;
 import com.git.generator.domain.EntityProperty;
 import com.git.generator.domain.Table;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +53,9 @@ public abstract class AbstractGeneratorProcess implements Generator{
             config.setDirectoryForTemplateLoading(template);
         }else if (GeneratorConstant.DATA_ACCESS_TYPE_MYBATIS.equals(getDataAccessType())){
             File template = ResourceUtils.getFile(GeneratorConstant.DEFAULT_TEMPLATE_MYBATIS);
+            config.setDirectoryForTemplateLoading(template);
+        }else if (GeneratorConstant.DATA_ACCESS_TYPE_MYBATIS_TK_MAPPER.equals(getDataAccessType())){
+            File template = ResourceUtils.getFile(GeneratorConstant.DEFAULT_TEMPLATE_MYBATIS_TK_MAPPER);
             config.setDirectoryForTemplateLoading(template);
         }else {
             throw new Exception("当前持久层框架【"+getDataAccessType()+"】待开发");

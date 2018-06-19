@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * ${entityComment} 基础支持，该文件添加后不做修改
+ * ${entityComment} 基础支持
  *
  * @author Roger
  * @email 190642964@qq.com

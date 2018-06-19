@@ -1,5 +1,8 @@
 package com.git.generator.constant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * generator 常量
  *
@@ -22,6 +25,10 @@ public interface GeneratorConstant {
      */
     String DATA_ACCESS_TYPE_MYBATIS = "mybatis";
     /**
+     * 持久层框架 - mybatis 通用 mapper
+     */
+    String DATA_ACCESS_TYPE_MYBATIS_TK_MAPPER = "mybatis-tk";
+    /**
      * freemarker 模板文件地址 - JPA
      */
     String DEFAULT_TEMPLATE_JPA = "classpath:template\\jpa";
@@ -29,6 +36,10 @@ public interface GeneratorConstant {
      * freemarker 模板文件地址 - MYBATIS
      */
     String DEFAULT_TEMPLATE_MYBATIS = "classpath:template\\mybatis";
+    /**
+     * freemarker 模板文件地址 - MYBATIS  通用 mapper
+     */
+    String DEFAULT_TEMPLATE_MYBATIS_TK_MAPPER = "classpath:template\\mybatis-tk";
 
     /**
      * 文件夹分割符
@@ -55,4 +66,23 @@ public interface GeneratorConstant {
      * service impl 包名
      */
     String PACKAGE_NAME_SERVICE_IMPL = "impl";
+    /**
+     * Mybatis 能够生成的模块
+     */
+    List<String> GENERATOR_MODULE_MYBATIS = new ArrayList<String>() {{
+        this.add("Entity");
+        this.add("Service");
+        this.add("ServiceImpl");
+        this.add("Mapper");
+        this.add("MapperXml");
+    }};
+    /**
+     * JPA 能够生成的模块
+     */
+    List<String> GENERATOR_MODULE_JPA = new ArrayList<String>() {{
+        this.add("Entity");
+        this.add("Repository");
+        this.add("Service");
+        this.add("ServiceImpl");
+    }};
 }

@@ -1,7 +1,6 @@
 package com.git.generator.process;
 
 import com.git.generator.config.GeneratorConfig;
-import com.git.generator.config.GeneratorConfiguration;
 import com.git.generator.constant.GeneratorConstant;
 import com.git.generator.domain.EntityProperty;
 import com.git.generator.domain.Table;
@@ -9,7 +8,6 @@ import com.git.generator.util.GeneratorUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.util.HashMap;

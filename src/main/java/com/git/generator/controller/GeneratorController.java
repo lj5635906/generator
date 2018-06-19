@@ -10,15 +10,12 @@ import com.git.generator.controller.vo.ResultVo;
 import com.git.generator.domain.Table;
 import com.git.generator.handler.GeneratorDataBaseHandler;
 import com.git.generator.service.GeneratorService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,15 +35,18 @@ public class GeneratorController {
     private GeneratorService generatorService;
 
     /**
-     * 验证数据源是否正确
+     * 设置、验证数据源是否正确
      *
      * @param command 数据源
      */
     @PostMapping("/set-datasource")
     public ResultVo connection(@RequestBody DataSourceCommand command) {
-        DataSourceConfig config = new DataSourceConfig();
-        BeanUtils.copyProperties(command, config);
-        GeneratorDataBaseHandler.dataSourceConfig = config;
+        DataSourceConfig.host = command.getHost();
+        DataSourceConfig.dbType = command.getDbType();
+        DataSourceConfig.databaseName = command.getDatabaseName();
+        DataSourceConfig.password = command.getPassword();
+        DataSourceConfig.username = command.getUsername();
+        DataSourceConfig.port = command.getPort();
         try {
             generatorDataBaseHandler.getConnection(generatorDataBaseHandler.getUrl());
             return ResultVo.ok();
@@ -78,24 +78,12 @@ public class GeneratorController {
     @GetMapping("/modules")
     public ResultVo getModules() {
         if (GeneratorConstant.DATA_ACCESS_TYPE_JPA.equals(GeneratorConfig.dataAccessType)) {
-            List<String> module = new ArrayList<String>() {{
-                this.add("Entity");
-                this.add("Repository");
-                this.add("Service");
-                this.add("ServiceImpl");
-            }};
-            return ResultVo.ok(module);
+            return ResultVo.ok(GeneratorConstant.GENERATOR_MODULE_JPA);
         } else if (GeneratorConstant.DATA_ACCESS_TYPE_MYBATIS.equals(GeneratorConfig.dataAccessType)) {
-            List<String> module = new ArrayList<String>() {{
-                this.add("Entity");
-                this.add("Repository");
-                this.add("Service");
-                this.add("ServiceImpl");
-                this.add("Mapper");
-                this.add("MapperXml");
-            }};
-            return ResultVo.ok(module);
-        } else {
+            return ResultVo.ok(GeneratorConstant.GENERATOR_MODULE_MYBATIS);
+        } else if (GeneratorConstant.DATA_ACCESS_TYPE_MYBATIS_TK_MAPPER.equals(GeneratorConfig.dataAccessType)) {
+            return ResultVo.ok(GeneratorConstant.GENERATOR_MODULE_MYBATIS);
+        }else {
 
         }
         return ResultVo.ok();

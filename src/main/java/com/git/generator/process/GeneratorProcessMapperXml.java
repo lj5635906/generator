@@ -1,7 +1,6 @@
 package com.git.generator.process;
 
 import com.git.generator.config.GeneratorConfig;
-import com.git.generator.constant.GeneratorConstant;
 import com.git.generator.domain.EntityProperty;
 import com.git.generator.domain.Table;
 import com.git.generator.util.GeneratorUtil;
@@ -41,7 +40,7 @@ public class GeneratorProcessMapperXml extends AbstractGeneratorProcess {
 
     @Override
     protected String getDataAccessType() {
-        return GeneratorConstant.DATA_ACCESS_TYPE_MYBATIS;
+        return GeneratorConfig.dataAccessType;
     }
 
     @Override
