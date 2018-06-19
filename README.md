@@ -8,6 +8,8 @@ a simple code generator | 简化版代码生成器 （S-Generator）
 **S-Generator** 根据MySql、Oracle、SQLServer数据库中表的设计来生成相应的实体、Mapper、Xml Mapper 、Server、ServerImpl等，当前版本Server、ServerImpl中暂未创建相关方法、只是创建文件而已，后续版本会初始相关单表方法。
 
 **Mybatis 生成代码**：实体类、Mapper、xml Mapper、Server、ServerImpl。
+
 **Mybatis 整合通用Mapper 生成代码**：实体类、Mapper、xml Mapper、Server、ServerImpl。与Mybatis生成代码实际差不多。
+
 **JPA 生成代码**： 实体类、Repository、Server、ServerImpl。
     
