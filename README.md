@@ -1,7 +1,9 @@
 # a simple code generator | 简化版代码生成器 （S-Generator）
 ========================================
 
-**S-Generator** 是一个简化版的代码生成器，功能、流程相对简单，没有相关配置，只需要启动服务进行相对简单配置即可生成代码。生成代码只提供了常规的增删改查操作，当然这些操作只针对与单表。这些增删改查操作是基于Mybatis、Mybatis 通用mapper、Spring JPA来实现，
+**S-Generator** 是一个简化版的代码生成器，功能、流程相对简单，没有相关配置，只需要启动服务进行相对简单配置即可生成代码。生成代码只提供了常规的增删改查操作，当然这些操作只针对与单表。这些增删改查操作是基于Mybatis、Mybatis 通用mapper、Spring JPA来实现。
+
+**S-Generator** 使用技术：FreeMarker、Spring Boot
 
 适用范围：java项目，数据访问层使用 Mybatis、Mybatis 通用Mapper、JPA框架。
 
@@ -19,5 +21,6 @@
     个人网站：  http://www.luojie.site
     
 ## S-Generator 使用说明
-
+    
+    1. 
     
