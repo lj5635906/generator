@@ -34,7 +34,9 @@
 ![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/9.png)
 ![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/10.png)
 ![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/11.png)
+
 将生成的Xml移动到resources
+
 ![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/12.png)
 
 代码生成完毕！
