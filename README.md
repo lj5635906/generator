@@ -23,4 +23,14 @@
 ## S-Generator 使用说明
     
 ![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/1.png)
-    
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/2.png)   
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/3.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/4.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/5.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/6.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/7.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/8.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/9.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/10.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/11.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/12.png)
