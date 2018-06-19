@@ -16,7 +16,7 @@
 ## 作者信息
     
     作者邮箱：  190642964@qq.com
-    个人网站：  [www.luojie.site](www.luojie.site)
+    个人网站：  http://www.luojie.site
     
 ## S-Generator 使用说明
 
