@@ -22,5 +22,5 @@
     
 ## S-Generator 使用说明
     
-    1. 
+    ![Alt text](https://github.com/lj5635906/generator/raw/master/explain/1.jpg)
     
