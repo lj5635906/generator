@@ -18,9 +18,9 @@
 ## 作者信息
     
     作者邮箱：  190642964@qq.com
-    个人网站：  http://www.luojie.site
+    个人网站：   http://www.luojie.site
     
 ## S-Generator 使用说明
     
-    ![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/1.png)
+![Image text](https://raw.githubusercontent.com/lj5635906/generator/master/explain/1.png)
     
