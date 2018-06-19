@@ -14,6 +14,9 @@
 **Mybatis 整合通用Mapper 生成代码**：实体类、Mapper、xml Mapper、Server、ServerImpl。与Mybatis生成代码实际差不多。
 
 **JPA 生成代码**： 实体类、Repository、Server、ServerImpl。
+
+**S-Generator** 当前版本只能根据MySql来生成代码，主键策略只支持自增，其它主键生成策略需要代码生成后再进行手动配置。
+
     
 ## 作者信息
     
