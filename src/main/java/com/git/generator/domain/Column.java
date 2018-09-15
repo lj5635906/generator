@@ -77,7 +77,7 @@ public class Column {
             case Types.DATE:
             case Types.TIMESTAMP:
             case Types.TIME:
-                this.dataType = "Date";
+                this.dataType = "LocalDateTime";
                 break;
             case Types.BINARY:
             case Types.VARBINARY:

@@ -1,7 +1,7 @@
 package ${mapperFullPackageName};
 
 import ${entityFullPackageName}.${entityName};
-import tk.mybatis.mapper.common.Mapper;
+import com.control.common.persistence.core.ControlMapper;
 
 /**
  * ${entityComment} 基础支持
@@ -10,7 +10,6 @@ import tk.mybatis.mapper.common.Mapper;
  * @email 190642964@qq.com
  * @create ${.now}
  */
-@org.apache.ibatis.annotations.Mapper
-public interface ${entityName}Mapper extends Mapper<${entityName}> {
+public interface ${entityName}Mapper extends ControlMapper<${entityName}> {
 
 }

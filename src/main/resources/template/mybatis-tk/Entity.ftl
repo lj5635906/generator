@@ -3,7 +3,7 @@ package ${entityFullPackageName};
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * ${entityComment} 实体类
@@ -34,5 +34,15 @@ public class ${entityName} {
      */
 	${bean.accessAuth} ${bean.type} ${bean.propertyName};
 	</#if>
+
+    /**
+     * 初始化数据
+     */
+    public void auto(){
+        this.setCreateDateTime(DateTimeUtils.getNow());
+        this.setUpdateDateTime(DateTimeUtils.getNow());
+        this.setDeleteFlag(0);
+        this.setVersion(0);
+    }
 </#list>
 }
