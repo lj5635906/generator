@@ -1,5 +1,7 @@
 package ${entityFullPackageName};
 
+import com.control.common.core.util.DateTimeUtils;
+import com.control.common.core.util.UUIDUtils;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -23,9 +25,6 @@ public class ${entityName} {
 	 * ${bean.comment}
 	 */
     @Id
-        <#if bean.autoincrement==true >
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-        </#if>
 	${bean.accessAuth} ${bean.type} ${bean.propertyName};
 	<#else>
 
@@ -34,15 +33,17 @@ public class ${entityName} {
      */
 	${bean.accessAuth} ${bean.type} ${bean.propertyName};
 	</#if>
+</#list>
 
     /**
      * 初始化数据
      */
     public void auto(){
+        this.setId(UUIDUtils.generateUUID());
         this.setCreateDateTime(DateTimeUtils.getNow());
         this.setUpdateDateTime(DateTimeUtils.getNow());
         this.setDeleteFlag(0);
         this.setVersion(0);
     }
-</#list>
+
 }
